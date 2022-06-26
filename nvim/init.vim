@@ -16,7 +16,6 @@ Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
-Plug 'dense-analysis/ale'
 Plug 'kdheepak/lazygit.nvim'
 Plug 'kevinhwang91/promise-async'
 Plug 'kevinhwang91/nvim-ufo' 
@@ -24,6 +23,7 @@ Plug 'mbbill/undotree'
 Plug 'MunifTanjim/nui.nvim'        " it's a dependency
 Plug 'xeluxee/competitest.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'mfussenegger/nvim-lint'
 call plug#end()
 
 nnoremap <C-u> :UndotreeToggle<CR>
