@@ -23,7 +23,7 @@ Plug 'mbbill/undotree'
 Plug 'MunifTanjim/nui.nvim'        " it's a dependency
 Plug 'xeluxee/competitest.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-Plug 'mfussenegger/nvim-lint'
+" Plug 'mfussenegger/nvim-lint'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'williamboman/nvim-lsp-installer'
 call plug#end()
