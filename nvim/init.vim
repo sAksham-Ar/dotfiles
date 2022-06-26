@@ -23,6 +23,7 @@ Plug 'kevinhwang91/nvim-ufo'
 Plug 'mbbill/undotree'
 Plug 'MunifTanjim/nui.nvim'        " it's a dependency
 Plug 'xeluxee/competitest.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 call plug#end()
 
 nnoremap <C-u> :UndotreeToggle<CR>
