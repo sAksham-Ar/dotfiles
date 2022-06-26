@@ -21,6 +21,8 @@ Plug 'kdheepak/lazygit.nvim'
 Plug 'kevinhwang91/promise-async'
 Plug 'kevinhwang91/nvim-ufo' 
 Plug 'mbbill/undotree'
+Plug 'MunifTanjim/nui.nvim'        " it's a dependency
+Plug 'xeluxee/competitest.nvim'
 call plug#end()
 
 nnoremap <C-u> :UndotreeToggle<CR>
