@@ -7,9 +7,9 @@ Plug 'lewis6991/gitsigns.nvim'
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 Plug 'kyazdani42/nvim-web-devicons' " optional, for file icons
 Plug 'kyazdani42/nvim-tree.lua'
-Plug 'neovim/nvim-lspconfig'
+" Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lualine/lualine.nvim'
-Plug 'hrsh7th/cmp-nvim-lsp'
+" Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
@@ -18,12 +18,13 @@ Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'kdheepak/lazygit.nvim'
 Plug 'kevinhwang91/promise-async'
-Plug 'kevinhwang91/nvim-ufo' 
+" Plug 'kevinhwang91/nvim-ufo' 
 Plug 'mbbill/undotree'
 Plug 'MunifTanjim/nui.nvim'        " it's a dependency
 Plug 'xeluxee/competitest.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-Plug 'mfussenegger/nvim-lint'
+" Plug 'mfussenegger/nvim-lint'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 let mapLeader = ' '
