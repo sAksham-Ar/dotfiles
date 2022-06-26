@@ -26,6 +26,7 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'mfussenegger/nvim-lint'
 call plug#end()
 
+let mapLeader = ' '
 nnoremap <C-u> :UndotreeToggle<CR>
 nnoremap <C-g> :LazyGit<CR>
 nnoremap <C-p> :Telescope find_files<CR>

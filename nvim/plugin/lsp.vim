@@ -31,6 +31,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  vim.keymap.set("v", "<space>f", vim.lsp.buf.range_formatting, bufopts)
   vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
 end
 
@@ -99,8 +100,7 @@ capabilities.textDocument.foldingRange = {
 dynamicRegistration = false,
 lineFoldingOnly = true
 }
-
-servers = {'phpactor', 'tsserver'}
+servers = {'intelephense', 'tsserver'}
 for _, server in pairs(servers) do
     require('lspconfig')[server].setup{
     on_attach = on_attach,

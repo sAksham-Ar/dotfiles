@@ -17,3 +17,4 @@ set scrolloff=8
 set updatetime=50
 set foldlevel=99 
 set completeopt=menu,menuone,noselect
+set clipboard=unnamed
