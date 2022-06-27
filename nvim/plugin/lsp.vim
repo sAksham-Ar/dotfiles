@@ -11,9 +11,6 @@ local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  vim.wo.foldcolumn = '1'
-  vim.wo.foldlevel = 99 -- feel free to decrease the value
-  vim.wo.foldenable = true
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local bufopts = { noremap=true, silent=true, buffer=bufnr }
@@ -100,18 +97,28 @@ capabilities.textDocument.foldingRange = {
 dynamicRegistration = false,
 lineFoldingOnly = true
 }
-servers = {'intelephense', 'tsserver'}
-for _, server in pairs(servers) do
-    require('lspconfig')[server].setup{
-    on_attach = on_attach,
+
+local lsp_installer = require("nvim-lsp-installer")
+local lspconfig = require("lspconfig")
+
+lsp_installer.setup {}
+
+lspconfig.util.default_config = vim.tbl_extend(
+    "force",
+    lspconfig.util.default_config,
+    {
+        on_attach = on_attach,
     flags = lsp_flags,
     capabilities = capabilities
     }
-end
--- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-require('ufo').setup()
-EOF
+)
 
+for _, server in ipairs(lsp_installer.get_installed_servers()) do
+  lspconfig[server.name].setup {}
+end
+
+
+EOF
 augroup lint
 autocmd BufWritePost <buffer> lua require('lint').try_lint()
 augroup end

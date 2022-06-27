@@ -1,1 +1,5 @@
-lua require('gitsigns').setup()
+lua << EOF
+require('gitsigns').setup {
+    current_line_blame = true
+}
+EOF

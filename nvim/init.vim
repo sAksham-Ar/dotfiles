@@ -7,7 +7,7 @@ Plug 'lewis6991/gitsigns.nvim'
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 Plug 'kyazdani42/nvim-web-devicons' " optional, for file icons
 Plug 'kyazdani42/nvim-tree.lua'
-" Plug 'neovim/nvim-lspconfig'
+Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
@@ -23,17 +23,18 @@ Plug 'mbbill/undotree'
 Plug 'MunifTanjim/nui.nvim'        " it's a dependency
 Plug 'xeluxee/competitest.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-" Plug 'mfussenegger/nvim-lint'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'williamboman/nvim-lsp-installer'
+Plug 'mfussenegger/nvim-lint'
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'williamboman/nvim-lsp-installer'
 call plug#end()
 
-let mapLeader = ' '
-nnoremap <C-u> :UndotreeToggle<CR>
-nnoremap <C-g> :LazyGit<CR>
-nnoremap <C-p> :Telescope find_files<CR>
-nnoremap <C-s> :Telescope live_grep<CR>
-nmap <silent> <c-k> :wincmd k<CR>
-nmap <silent> <c-j> :wincmd j<CR>
-nmap <silent> <c-h> :wincmd h<CR>
-nmap <silent> <c-l> :wincmd l<CR>
+let mapleader = " " 
+nnoremap <silent> <C-f> :silent !tmux neww tmux-sessionizer<CR>
+nnoremap <leader>u :UndotreeToggle<CR>
+nnoremap <leader>g :LazyGit<CR>
+nnoremap <leader>f :Telescope find_files<CR>
+nnoremap <leader>s :Telescope live_grep<CR>
+nmap <silent> <leader>k :wincmd k<CR>
+nmap <silent> <leader>j :wincmd j<CR>
+nmap <silent> <leader>h :wincmd h<CR>
+nmap <silent> <leader>l :wincmd l<CR>

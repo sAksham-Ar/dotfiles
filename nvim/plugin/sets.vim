@@ -1,4 +1,5 @@
 set relativenumber
+set nofixendofline
 set nohlsearch
 set hidden
 set noerrorbells
