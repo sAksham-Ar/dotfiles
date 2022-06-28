@@ -24,8 +24,10 @@ Plug 'MunifTanjim/nui.nvim'        " it's a dependency
 Plug 'xeluxee/competitest.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'mfussenegger/nvim-lint'
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'williamboman/nvim-lsp-installer'
+Plug 'ThePrimeagen/harpoon'
+Plug 'tpope/vim-fugitive'
 call plug#end()
 
 let mapleader = " " 
@@ -34,6 +36,13 @@ nnoremap <leader>u :UndotreeToggle<CR>
 nnoremap <leader>g :LazyGit<CR>
 nnoremap <leader>f :Telescope find_files<CR>
 nnoremap <leader>s :Telescope live_grep<CR>
+nnoremap <leader>p <cmd>lua vim.lsp.buf.formatting()<CR>
+vnoremap <leader>p <cmd>lua vim.lsp.buf.range_formatting()<CR>
+nnoremap <leader>ha :lua require("harpoon.mark").add_file()<CR>
+nnoremap <leader>hn :lua require("harpoon.ui").nav_next()<CR>
+nnoremap <leader>hp :lua require("harpoon.ui").nav_prev()<CR>                   
+nnoremap <leader>hf :Telescope harpoon marks<CR>
+
 nmap <silent> <leader>k :wincmd k<CR>
 nmap <silent> <leader>j :wincmd j<CR>
 nmap <silent> <leader>h :wincmd h<CR>
