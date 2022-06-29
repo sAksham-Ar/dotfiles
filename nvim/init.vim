@@ -1,10 +1,11 @@
 call plug#begin()
 Plug 'windwp/nvim-autopairs'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'lewis6991/gitsigns.nvim'
-Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+Plug 'rebelot/kanagawa.nvim'
 Plug 'kyazdani42/nvim-web-devicons' " optional, for file icons
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'neovim/nvim-lspconfig'
@@ -27,7 +28,8 @@ Plug 'mfussenegger/nvim-lint'
 "Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'williamboman/nvim-lsp-installer'
 Plug 'ThePrimeagen/harpoon'
-Plug 'tpope/vim-fugitive'
+Plug 'ThePrimeagen/git-worktree.nvim'
+Plug 'rafamadriz/friendly-snippets'
 call plug#end()
 
 let mapleader = " " 
@@ -42,6 +44,8 @@ nnoremap <leader>ha :lua require("harpoon.mark").add_file()<CR>
 nnoremap <leader>hn :lua require("harpoon.ui").nav_next()<CR>
 nnoremap <leader>hp :lua require("harpoon.ui").nav_prev()<CR>                   
 nnoremap <leader>hf :Telescope harpoon marks<CR>
+nnoremap <leader>wf :lua require('telescope').extensions.git_worktree.git_worktrees()<CR>
+nnoremap <leader>wc :lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>
 
 nmap <silent> <leader>k :wincmd k<CR>
 nmap <silent> <leader>j :wincmd j<CR>
