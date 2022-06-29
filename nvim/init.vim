@@ -40,10 +40,10 @@ nnoremap <leader>f :Telescope find_files<CR>
 nnoremap <leader>s :Telescope live_grep<CR>
 nnoremap <leader>p <cmd>lua vim.lsp.buf.formatting()<CR>
 vnoremap <leader>p <cmd>lua vim.lsp.buf.range_formatting()<CR>
-nnoremap <leader>ha :lua require("harpoon.mark").add_file()<CR>
-nnoremap <leader>hn :lua require("harpoon.ui").nav_next()<CR>
-nnoremap <leader>hp :lua require("harpoon.ui").nav_prev()<CR>                   
-nnoremap <leader>hf :Telescope harpoon marks<CR>
+nnoremap <leader>ma :lua require("harpoon.mark").add_file()<CR>
+nnoremap <leader>mn :lua require("harpoon.ui").nav_next()<CR>
+nnoremap <leader>mp :lua require("harpoon.ui").nav_prev()<CR>                   
+nnoremap <leader>mf :Telescope harpoon marks<CR>
 nnoremap <leader>wf :lua require('telescope').extensions.git_worktree.git_worktrees()<CR>
 nnoremap <leader>wc :lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>
 
