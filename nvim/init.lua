@@ -35,19 +35,19 @@ vim.api.nvim_set_keymap('n', '<leader>b', ':Telescope current_buffer_fuzzy_find<
 vim.api.nvim_set_keymap('n', '<leader>hf', ':Telescope harpoon marks<CR>', { noremap = true })
 
 -- Telescope git-worktree
-vim.api.nvim_set_keymap('n', '<leader>wf', ':lua require(\'telescope\').extensions.git_worktree.git_worktrees()',
+vim.api.nvim_set_keymap('n', '<leader>wf', ':lua require(\'telescope\').extensions.git_worktree.git_worktrees()<CR>',
     { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>wc', ':lua require(\'telescope\').extensions.git_worktree.create_git_worktree()',
+vim.api.nvim_set_keymap('n', '<leader>wc', ':lua require(\'telescope\').extensions.git_worktree.create_git_worktree()<CR>',
     { noremap = true })
 
 -- harpoon
-vim.api.nvim_set_keymap('n', '<leader>ha', 'require(\'harpoon.mark\').add_file()', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>hn', 'require(\'harpoon.ui\').nav_next()', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>hp', 'require(\'harpoon.ui\').nav_prev()', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>hj', 'require(\'harpoon.ui\').nav_file(1)', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>hk', 'require(\'harpoon.ui\').nav_file(2)', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>hl', 'require(\'harpoon.ui\').nav_file(3)', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>h;', 'require(\'harpoon.ui\').nav_file(4)', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>ha', ':lua require(\'harpoon.mark\').add_file()<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>hn', ':lua require(\'harpoon.ui\').nav_next()<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>hp', ':lua require(\'harpoon.ui\').nav_prev()<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>hj', ':lua require(\'harpoon.ui\').nav_file(1)<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>hk', ':lua require(\'harpoon.ui\').nav_file(2)<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>hl', ':lua require(\'harpoon.ui\').nav_file(3)<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>h;', ':lua require(\'harpoon.ui\').nav_file(4)<CR>', { noremap = true })
 
 -- movement b/w windows
 vim.api.nvim_set_keymap('n', '<leader>vk', ':wincmd k<CR>', { noremap = true })
