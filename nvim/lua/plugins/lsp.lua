@@ -1,6 +1,5 @@
- let g:coq_settings = { 'auto_start': 'shut-up' }
+vim.cmd [[ let g:coq_settings = { 'auto_start': 'shut-up' }]]
 
-lua <<EOF
 local opts = { noremap=true, silent=true }
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
@@ -28,6 +27,10 @@ local on_attach = function(client, bufnr)
   end, bufopts)
   vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
   vim.keymap.set('n', 'gr', require('telescope.builtin').lsp_references, bufopts)
+
+-- formatting
+vim.keymap.set('n', '<leader>p', vim.lsp.buf.formatting, bufopts)
+vim.keymap.set('v', '<leader>p', vim.lsp.buf.range_formatting, bufopts)
 end
 
 local lsp_flags = {
@@ -124,7 +127,3 @@ for _, server in ipairs(lsp_installer.get_installed_servers()) do
 end
 
 
-EOF
-augroup lint
-autocmd BufWritePost <buffer> lua require('lint').try_lint()
-augroup end
