@@ -1,42 +1,60 @@
 call plug#begin()
-Plug 'windwp/nvim-autopairs'
+" color themes
+Plug 'marko-cerovac/material.nvim'
+
+" essential
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'lewis6991/gitsigns.nvim'
-Plug 'rebelot/kanagawa.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+
+" file browser
 Plug 'kyazdani42/nvim-web-devicons' " optional, for file icons
 Plug 'kyazdani42/nvim-tree.lua'
+
+" utils
+Plug 'windwp/nvim-autopairs'
+Plug 'mbbill/undotree'
+Plug 'ThePrimeagen/harpoon'
+
+Plug 'kevinhwang91/promise-async'
+Plug 'kevinhwang91/nvim-ufo'
+
+"lsp stuff
 Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lualine/lualine.nvim'
-"Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
+Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
+Plug 'williamboman/nvim-lsp-installer'
+Plug 'onsails/lspkind.nvim'
+Plug 'nvim-lua/lsp_extensions.nvim'
+Plug 'simrat39/rust-tools.nvim'
+Plug 'mfussenegger/nvim-lint'
+
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" autocomplete
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/vim-vsnip'
-Plug 'onsails/lspkind.nvim'
+"Plug 'rafamadriz/friendly-snippets'
+
+
+Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
+Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
+
+" git
 Plug 'kdheepak/lazygit.nvim'
-Plug 'kevinhwang91/promise-async'
-Plug 'kevinhwang91/nvim-ufo'
-Plug 'mbbill/undotree'
+Plug 'lewis6991/gitsigns.nvim'
+Plug 'ThePrimeagen/git-worktree.nvim'
+
+" cp
 Plug 'MunifTanjim/nui.nvim'        " it's a dependency
 Plug 'xeluxee/competitest.nvim'
-Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-Plug 'mfussenegger/nvim-lint'
-Plug 'nvim-lua/lsp_extensions.nvim'
-Plug 'simrat39/rust-tools.nvim'
-"Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'williamboman/nvim-lsp-installer'
-Plug 'ThePrimeagen/harpoon'
-Plug 'ThePrimeagen/git-worktree.nvim'
-"Plug 'rafamadriz/friendly-snippets'
-" main one
-Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
-" 9000+ Snippets
-Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
+
+" status bar
+Plug 'nvim-lualine/lualine.nvim'
 call plug#end()
 
 let mapleader = " "
@@ -45,6 +63,7 @@ nnoremap <leader>u :UndotreeToggle<CR>
 nnoremap <leader>g :LazyGit<CR>
 nnoremap <leader>f :Telescope find_files<CR>
 nnoremap <leader>s :Telescope live_grep<CR>
+nnoremap <leader>b :Telescope current_buffer_fuzzy_find<CR>
 nnoremap <leader>p <cmd>lua vim.lsp.buf.formatting()<CR>
 vnoremap <leader>p <cmd>lua vim.lsp.buf.range_formatting()<CR>
 nnoremap <leader>ha :lua require("harpoon.mark").add_file()<CR>
@@ -66,7 +85,6 @@ nmap <silent> <leader>vl :wincmd l<CR>
 
 augroup INLAY_HINTS
     autocmd!
-    " autocmd BufWritePre *.lua Neoformat
     autocmd BufWritePre * %s/\s\+$//e
     autocmd BufEnter,BufWinEnter,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{}
 augroup END
