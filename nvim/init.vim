@@ -20,12 +20,14 @@ Plug 'hrsh7th/vim-vsnip'
 Plug 'onsails/lspkind.nvim'
 Plug 'kdheepak/lazygit.nvim'
 Plug 'kevinhwang91/promise-async'
-Plug 'kevinhwang91/nvim-ufo' 
+Plug 'kevinhwang91/nvim-ufo'
 Plug 'mbbill/undotree'
 Plug 'MunifTanjim/nui.nvim'        " it's a dependency
 Plug 'xeluxee/competitest.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'mfussenegger/nvim-lint'
+Plug 'nvim-lua/lsp_extensions.nvim'
+Plug 'simrat39/rust-tools.nvim'
 "Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'williamboman/nvim-lsp-installer'
 Plug 'ThePrimeagen/harpoon'
@@ -37,7 +39,7 @@ Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
 Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 call plug#end()
 
-let mapleader = " " 
+let mapleader = " "
 nnoremap <silent> <C-f> :silent !tmux neww tmux-sessionizer<CR>
 nnoremap <leader>u :UndotreeToggle<CR>
 nnoremap <leader>g :LazyGit<CR>
@@ -47,16 +49,24 @@ nnoremap <leader>p <cmd>lua vim.lsp.buf.formatting()<CR>
 vnoremap <leader>p <cmd>lua vim.lsp.buf.range_formatting()<CR>
 nnoremap <leader>ha :lua require("harpoon.mark").add_file()<CR>
 nnoremap <leader>hn :lua require("harpoon.ui").nav_next()<CR>
-nnoremap <leader>hp :lua require("harpoon.ui").nav_prev()<CR>                   
-nnoremap <leader>hj :lua require("harpoon.ui").nav_file(1)<CR>                   
-nnoremap <leader>hk :lua require("harpoon.ui").nav_file(2)<CR>                   
-nnoremap <leader>hl :lua require("harpoon.ui").nav_file(3)<CR>                   
-nnoremap <leader>h; :lua require("harpoon.ui").nav_file(4)<CR>                   
+nnoremap <leader>hp :lua require("harpoon.ui").nav_prev()<CR>
+nnoremap <leader>hj :lua require("harpoon.ui").nav_file(1)<CR>
+nnoremap <leader>hk :lua require("harpoon.ui").nav_file(2)<CR>
+nnoremap <leader>hl :lua require("harpoon.ui").nav_file(3)<CR>
+nnoremap <leader>h; :lua require("harpoon.ui").nav_file(4)<CR>
 nnoremap <leader>hf :Telescope harpoon marks<CR>
 nnoremap <leader>wf :lua require('telescope').extensions.git_worktree.git_worktrees()<CR>
 nnoremap <leader>wc :lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>
 
-nmap <silent> <c-k> :wincmd k<CR>
-nmap <silent> <c-j> :wincmd j<CR>
-nmap <silent> <c-h> :wincmd h<CR>
-nmap <silent> <c-l> :wincmd l<CR>
+
+nmap <silent> <leader>vk :wincmd k<CR>
+nmap <silent> <leader>vj :wincmd j<CR>
+nmap <silent> <leader>vh :wincmd h<CR>
+nmap <silent> <leader>vl :wincmd l<CR>
+
+augroup INLAY_HINTS
+    autocmd!
+    " autocmd BufWritePre *.lua Neoformat
+    autocmd BufWritePre * %s/\s\+$//e
+    autocmd BufEnter,BufWinEnter,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{}
+augroup END
