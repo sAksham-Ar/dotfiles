@@ -67,9 +67,9 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 })
 
 -- show inlay_hints
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "TabEnter" }, {
+vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
     pattern = "*.rs",
-    command = ":lua require'lsp_extensions'.inlay_hints{}",
+    command = ":lua require'lsp_extensions'.inlay_hints{only_current_line = true}",
     group = au_utils
 })
 
