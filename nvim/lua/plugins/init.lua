@@ -11,6 +11,7 @@ return require('packer').startup(function()
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate'
     }
+    use 'nvim-treesitter/nvim-treesitter-context'
     use {
         'nvim-telescope/telescope.nvim',
         requires = { { 'nvim-lua/plenary.nvim' } }
@@ -34,6 +35,7 @@ return require('packer').startup(function()
     use 'ThePrimeagen/harpoon'
     use { 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' }
     use 'tpope/vim-surround'
+    use "lukas-reineke/indent-blankline.nvim"
 
     -- lsp stuff
     use {
@@ -49,6 +51,7 @@ return require('packer').startup(function()
     }
     use 'nvim-lua/lsp_extensions.nvim'
     use 'simrat39/rust-tools.nvim'
+    use 'simrat39/symbols-outline.nvim'
 
     -- lint
     use 'mfussenegger/nvim-lint'
@@ -59,22 +62,18 @@ return require('packer').startup(function()
         'hrsh7th/cmp-buffer',
         'hrsh7th/cmp-path',
         'hrsh7th/cmp-cmdline',
+        'hrsh7th/cmp-nvim-lsp',
+        'hrsh7th/cmp-nvim-lsp-signature-help'
     }
-
-    use {
-        'ms-jpq/coq_nvim',
-        branch = "coq"
-    }
+    use { 'tzachar/cmp-tabnine', run = './install.sh', requires = 'hrsh7th/nvim-cmp' }
+    use { 'tzachar/cmp-fuzzy-buffer', requires = { 'hrsh7th/nvim-cmp', 'tzachar/fuzzy.nvim' } }
+    use { 'tzachar/cmp-fuzzy-path', requires = { 'hrsh7th/nvim-cmp', 'tzachar/fuzzy.nvim' } }
 
     -- snippets
     use {
         'hrsh7th/vim-vsnip',
-        'hrsh7th/cmp-vsnip'
-    }
-
-    use {
-        'ms-jpq/coq.artifacts',
-        branch = "artifacts"
+        'hrsh7th/cmp-vsnip',
+        'rafamadriz/friendly-snippets'
     }
 
     -- git

@@ -5,7 +5,7 @@ require('sets')
 require('plugins')
 
 -- setting up plugins
-require('plugins.autopairs')
+-- require('plugins.autopairs')
 require('plugins.cmp')
 require('plugins.colors')
 require('plugins.compitest')
