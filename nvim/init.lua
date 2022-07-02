@@ -5,6 +5,7 @@ require('sets')
 require('plugins')
 
 -- setting up plugins
+require('plugins.autopairs')
 require('plugins.cmp')
 require('plugins.colors')
 require('plugins.compitest')
@@ -67,11 +68,11 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 })
 
 -- show inlay_hints
-vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-    pattern = "*.rs",
-    command = ":lua require'lsp_extensions'.inlay_hints{only_current_line = true}",
-    group = au_utils
-})
+-- vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+--     pattern = "*.rs",
+--     command = ":lua require'lsp_extensions'.inlay_hints{only_current_line = true}",
+--     group = au_utils
+-- })
 
 -- lint
 vim.api.nvim_create_autocmd("BufWritePost", {

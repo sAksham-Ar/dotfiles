@@ -29,11 +29,11 @@ return require('packer').startup(function()
     -- utils
     use {
         "windwp/nvim-autopairs",
-        config = function() require("nvim-autopairs").setup {} end
     }
     use 'mbbill/undotree'
     use 'ThePrimeagen/harpoon'
     use { 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' }
+    use 'tpope/vim-surround'
 
     -- lsp stuff
     use {
