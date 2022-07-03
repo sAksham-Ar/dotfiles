@@ -75,7 +75,13 @@ return require('packer').startup(function()
     use {
         'numToStr/Comment.nvim',
         config = function()
-            require('Comment').setup()
+            require('Comment').setup({
+                mappings = {
+                    basic = true,
+                    extra = true,
+                    extended = true
+                }
+            })
         end
     }
 
