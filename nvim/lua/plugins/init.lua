@@ -52,6 +52,32 @@ return require('packer').startup(function()
     use 'nvim-lua/lsp_extensions.nvim'
     use 'simrat39/rust-tools.nvim'
     use 'simrat39/symbols-outline.nvim'
+    use 'p00f/clangd_extensions.nvim'
+    use { 'jose-elias-alvarez/null-ls.nvim',
+        config = function()
+            require("null-ls").setup({
+                sources = {
+                    require("null-ls").builtins.formatting.black,
+                },
+            })
+        end,
+    }
+
+    -- markdown stuff
+    use {
+        'lukas-reineke/headlines.nvim',
+        config = function()
+            require('headlines').setup()
+        end,
+    }
+
+    -- comments
+    use {
+        'numToStr/Comment.nvim',
+        config = function()
+            require('Comment').setup()
+        end
+    }
 
     -- lint
     use 'mfussenegger/nvim-lint'
