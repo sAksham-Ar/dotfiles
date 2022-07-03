@@ -25,6 +25,7 @@ local on_attach = function(client, bufnr)
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end, bufopts)
     vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+    vim.keymap.set('n', 'ge', vim.diagnostic.open_float, bufopts)
     vim.keymap.set('n', 'gr', require('telescope.builtin').lsp_references, bufopts)
 
     -- formatting

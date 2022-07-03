@@ -56,6 +56,12 @@ vim.api.nvim_set_keymap('n', '<leader>vh', ':wincmd h<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>vl', ':wincmd l<CR>', { noremap = true })
 
 
+-- compitest
+vim.api.nvim_set_keymap('n', '<leader>cpr', ':CompetiTestReceive<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>cpt', ':CompetiTestRun<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>cpa', ':CompetiTestAdd<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>cpe', ':CompetiTestEdit<CR>', { noremap = true })
+
 -- auto commands
 local au_utils = vim.api.nvim_create_augroup("Utils", { clear = true })
 
