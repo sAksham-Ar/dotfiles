@@ -27,6 +27,7 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
     vim.keymap.set('n', 'ge', vim.diagnostic.open_float, bufopts)
     vim.keymap.set('n', 'gr', require('telescope.builtin').lsp_references, bufopts)
+    vim.keymap.set('n', 'ga', require('telescope.builtin').diagnostics, bufopts)
 
     -- formatting
     vim.keymap.set('n', '<leader>p', vim.lsp.buf.formatting, bufopts)

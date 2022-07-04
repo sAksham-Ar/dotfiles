@@ -9,7 +9,7 @@ local source_mapping = {
     nvim_lsp = "[LSP]",
     nvim_lua = "[Lua]",
     cmp_tabnine = "[TN]",
-    path = "[Path]",
+    fuzzy_path = "[FPath]",
 }
 npairs.setup()
 

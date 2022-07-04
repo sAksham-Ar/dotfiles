@@ -72,13 +72,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     group = au_utils
 })
 
--- show inlay_hints
--- vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
---     pattern = "*.rs",
---     command = ":lua require'lsp_extensions'.inlay_hints{only_current_line = true}",
---     group = au_utils
--- })
-
 -- lint
 vim.api.nvim_create_autocmd("BufWritePost", {
     command = ":lua require('lint').try_lint()",
