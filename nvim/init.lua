@@ -17,7 +17,7 @@ require('plugins.telescope')
 require('plugins.tree')
 require('plugins.treesitter')
 require('plugins.ufo')
-
+require('plugins.dap')
 
 -- for switching between projects
 vim.api.nvim_set_keymap('n', '<c-f>', ':silent !tmux neww tmux-sessionizer<CR>', { noremap = true })
@@ -37,7 +37,8 @@ vim.api.nvim_set_keymap('n', '<leader>hf', ':Telescope harpoon marks<CR>', { nor
 -- Telescope git-worktree
 vim.api.nvim_set_keymap('n', '<leader>wf', ':lua require(\'telescope\').extensions.git_worktree.git_worktrees()<CR>',
     { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>wc', ':lua require(\'telescope\').extensions.git_worktree.create_git_worktree()<CR>',
+vim.api.nvim_set_keymap('n', '<leader>wc',
+    ':lua require(\'telescope\').extensions.git_worktree.create_git_worktree()<CR>',
     { noremap = true })
 
 -- harpoon
@@ -61,6 +62,23 @@ vim.api.nvim_set_keymap('n', '<leader>cpr', ':CompetiTestReceive<CR>', { noremap
 vim.api.nvim_set_keymap('n', '<leader>cpt', ':CompetiTestRun<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>cpa', ':CompetiTestAdd<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>cpe', ':CompetiTestEdit<CR>', { noremap = true })
+
+-- trouble
+vim.api.nvim_set_keymap("n", "<leader>xx", "<cmd>Trouble<cr>",
+    { silent = true, noremap = true }
+)
+vim.api.nvim_set_keymap("n", "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>",
+    { silent = true, noremap = true }
+)
+vim.api.nvim_set_keymap("n", "<leader>xd", "<cmd>Trouble document_diagnostics<cr>",
+    { silent = true, noremap = true }
+)
+vim.api.nvim_set_keymap("n", "<leader>xl", "<cmd>Trouble loclist<cr>",
+    { silent = true, noremap = true }
+)
+vim.api.nvim_set_keymap("n", "<leader>xq", "<cmd>Trouble quickfix<cr>",
+    { silent = true, noremap = true }
+)
 
 -- auto commands
 local au_utils = vim.api.nvim_create_augroup("Utils", { clear = true })

@@ -171,6 +171,12 @@ _G.packer_plugins = {
     path = "/Users/saksham.aryazomato.com/.local/share/nvim/site/pack/packer/start/lazygit.nvim",
     url = "https://github.com/kdheepak/lazygit.nvim"
   },
+  ["lsp_codelens_extensions.nvim"] = {
+    config = { "\27LJ\2\nA\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\24codelens_extensions\frequire\0" },
+    loaded = true,
+    path = "/Users/saksham.aryazomato.com/.local/share/nvim/site/pack/packer/start/lsp_codelens_extensions.nvim",
+    url = "https://github.com/ericpubu/lsp_codelens_extensions.nvim"
+  },
   ["lsp_extensions.nvim"] = {
     loaded = true,
     path = "/Users/saksham.aryazomato.com/.local/share/nvim/site/pack/packer/start/lsp_extensions.nvim",
@@ -216,6 +222,26 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/saksham.aryazomato.com/.local/share/nvim/site/pack/packer/start/nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
+  },
+  ["nvim-dap"] = {
+    loaded = true,
+    path = "/Users/saksham.aryazomato.com/.local/share/nvim/site/pack/packer/start/nvim-dap",
+    url = "https://github.com/mfussenegger/nvim-dap"
+  },
+  ["nvim-dap-go"] = {
+    loaded = true,
+    path = "/Users/saksham.aryazomato.com/.local/share/nvim/site/pack/packer/start/nvim-dap-go",
+    url = "https://github.com/leoluz/nvim-dap-go"
+  },
+  ["nvim-dap-ui"] = {
+    loaded = true,
+    path = "/Users/saksham.aryazomato.com/.local/share/nvim/site/pack/packer/start/nvim-dap-ui",
+    url = "https://github.com/rcarriga/nvim-dap-ui"
+  },
+  ["nvim-dap-virtual-text"] = {
+    loaded = true,
+    path = "/Users/saksham.aryazomato.com/.local/share/nvim/site/pack/packer/start/nvim-dap-virtual-text",
+    url = "https://github.com/theHamsta/nvim-dap-virtual-text"
   },
   ["nvim-lint"] = {
     loaded = true,
@@ -287,6 +313,11 @@ _G.packer_plugins = {
     path = "/Users/saksham.aryazomato.com/.local/share/nvim/site/pack/packer/start/symbols-outline.nvim",
     url = "https://github.com/simrat39/symbols-outline.nvim"
   },
+  ["telescope-dap.nvim"] = {
+    loaded = true,
+    path = "/Users/saksham.aryazomato.com/.local/share/nvim/site/pack/packer/start/telescope-dap.nvim",
+    url = "https://github.com/nvim-telescope/telescope-dap.nvim"
+  },
   ["telescope-fzf-native.nvim"] = {
     loaded = true,
     path = "/Users/saksham.aryazomato.com/.local/share/nvim/site/pack/packer/start/telescope-fzf-native.nvim",
@@ -296,6 +327,12 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/saksham.aryazomato.com/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
+  },
+  ["trouble.nvim"] = {
+    config = { "\27LJ\2\n9\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\ftrouble\frequire\0" },
+    loaded = true,
+    path = "/Users/saksham.aryazomato.com/.local/share/nvim/site/pack/packer/start/trouble.nvim",
+    url = "https://github.com/folke/trouble.nvim"
   },
   undotree = {
     loaded = true,
@@ -319,14 +356,22 @@ time([[Defining packer_plugins]], false)
 time([[Config for null-ls.nvim]], true)
 try_loadstring("\27LJ\2\n‚\1\0\0\a\0\b\0\0166\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\6\0004\3\3\0006\4\0\0'\6\1\0B\4\2\0029\4\3\0049\4\4\0049\4\5\4>\4\1\3=\3\a\2B\0\2\1K\0\1\0\fsources\1\0\0\nblack\15formatting\rbuiltins\nsetup\fnull-ls\frequire\0", "config", "null-ls.nvim")
 time([[Config for null-ls.nvim]], false)
--- Config for: headlines.nvim
-time([[Config for headlines.nvim]], true)
-try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14headlines\frequire\0", "config", "headlines.nvim")
-time([[Config for headlines.nvim]], false)
 -- Config for: Comment.nvim
 time([[Config for Comment.nvim]], true)
 try_loadstring("\27LJ\2\nh\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\2B\0\2\1K\0\1\0\rmappings\1\0\0\1\0\3\nextra\2\nbasic\2\rextended\2\nsetup\fComment\frequire\0", "config", "Comment.nvim")
 time([[Config for Comment.nvim]], false)
+-- Config for: trouble.nvim
+time([[Config for trouble.nvim]], true)
+try_loadstring("\27LJ\2\n9\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\ftrouble\frequire\0", "config", "trouble.nvim")
+time([[Config for trouble.nvim]], false)
+-- Config for: headlines.nvim
+time([[Config for headlines.nvim]], true)
+try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14headlines\frequire\0", "config", "headlines.nvim")
+time([[Config for headlines.nvim]], false)
+-- Config for: lsp_codelens_extensions.nvim
+time([[Config for lsp_codelens_extensions.nvim]], true)
+try_loadstring("\27LJ\2\nA\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\24codelens_extensions\frequire\0", "config", "lsp_codelens_extensions.nvim")
+time([[Config for lsp_codelens_extensions.nvim]], false)
 if should_profile then save_profiles() end
 
 end)

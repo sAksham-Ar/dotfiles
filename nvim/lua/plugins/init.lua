@@ -65,6 +65,32 @@ return require('packer').startup(function()
         end,
     }
 
+    -- Debug adapter protocol
+    use "mfussenegger/nvim-dap"
+    use "rcarriga/nvim-dap-ui"
+    use "theHamsta/nvim-dap-virtual-text"
+    use "nvim-telescope/telescope-dap.nvim"
+
+    use 'leoluz/nvim-dap-go'
+
+use {
+  'ericpubu/lsp_codelens_extensions.nvim',
+  -- Only required for debugging
+  requires = { {"nvim-lua/plenary.nvim", "mfussenegger/nvim-dap"} },
+  config = function ()
+    require("codelens_extensions").setup()
+  end,
+}
+    -- pretty print errors
+    use {
+        "folke/trouble.nvim",
+        requires = "kyazdani42/nvim-web-devicons",
+        config = function()
+            require("trouble").setup {
+            }
+        end
+    }
+
     -- markdown stuff
     use {
         'lukas-reineke/headlines.nvim',
