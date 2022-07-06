@@ -130,7 +130,7 @@ cmp.setup.cmdline(':', {
     })
 })
 
-
+require("luasnip.loaders.from_vscode").lazy_load()
 
 local tabnine = require("cmp_tabnine.config")
 tabnine:setup({
