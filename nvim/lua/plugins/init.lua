@@ -73,16 +73,36 @@ return require('packer').startup(function()
 
     use 'leoluz/nvim-dap-go'
 
-use {
-  'ericpubu/lsp_codelens_extensions.nvim',
-  -- Only required for debugging
-  requires = { {"nvim-lua/plenary.nvim", "mfussenegger/nvim-dap"} },
-  config = function ()
-    require("codelens_extensions").setup{
-        rust_debug_adapter = "rt_lldb"
+    use {
+        'ericpubu/lsp_codelens_extensions.nvim',
+        -- Only required for debugging
+        requires = { { "nvim-lua/plenary.nvim", "mfussenegger/nvim-dap" } },
+        config = function()
+            require("codelens_extensions").setup {
+                rust_debug_adapter = "rt_lldb"
+            }
+        end,
     }
-  end,
-}
+
+
+    -- treesitter
+    use {
+        "ThePrimeagen/refactoring.nvim",
+        requires = {
+            { "nvim-lua/plenary.nvim" },
+            { "nvim-treesitter/nvim-treesitter" }
+        }
+    }
+    use {
+        "danymat/neogen",
+        config = function()
+            require('neogen').setup {}
+        end,
+        requires = "nvim-treesitter/nvim-treesitter",
+        -- Uncomment next line if you want to follow only stable versions
+        -- tag = "*"
+    }
+
     -- pretty print errors
     use {
         "folke/trouble.nvim",

@@ -18,6 +18,7 @@ require('plugins.tree')
 require('plugins.treesitter')
 require('plugins.ufo')
 require('plugins.dap')
+require('plugins.refactoring')
 
 -- for switching between projects
 vim.api.nvim_set_keymap('n', '<c-f>', ':silent !tmux neww tmux-sessionizer<CR>', { noremap = true })
@@ -79,6 +80,10 @@ vim.api.nvim_set_keymap("n", "<leader>xl", "<cmd>Trouble loclist<cr>",
 vim.api.nvim_set_keymap("n", "<leader>xq", "<cmd>Trouble quickfix<cr>",
     { silent = true, noremap = true }
 )
+
+-- treesitter
+local opts = { noremap = true, silent = true }
+vim.api.nvim_set_keymap("n", "<Leader>nf", ":lua require('neogen').generate()<CR>", opts)
 
 -- auto commands
 local au_utils = vim.api.nvim_create_augroup("Utils", { clear = true })
