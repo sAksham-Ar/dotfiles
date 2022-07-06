@@ -153,8 +153,8 @@ return require('packer').startup(function()
 
     -- snippets
     use {
-        'hrsh7th/vim-vsnip',
-        'hrsh7th/cmp-vsnip',
+        'L3MON4D3/LuaSnip',
+        'saadparwaiz1/cmp_luasnip',
         'rafamadriz/friendly-snippets'
     }
 
@@ -168,6 +168,7 @@ return require('packer').startup(function()
         'xeluxee/competitest.nvim',
         requires = 'MunifTanjim/nui.nvim',
     }
+    use { 'glepnir/template.nvim' }
 
     -- status bar
     use {
