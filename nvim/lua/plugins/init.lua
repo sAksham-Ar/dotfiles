@@ -78,7 +78,9 @@ use {
   -- Only required for debugging
   requires = { {"nvim-lua/plenary.nvim", "mfussenegger/nvim-dap"} },
   config = function ()
-    require("codelens_extensions").setup()
+    require("codelens_extensions").setup{
+        rust_debug_adapter = "rt_lldb"
+    }
   end,
 }
     -- pretty print errors
