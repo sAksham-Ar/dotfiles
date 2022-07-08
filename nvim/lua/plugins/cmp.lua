@@ -1,6 +1,7 @@
 local cmp = require 'cmp'
 local lspkind = require('lspkind')
 
+local luasnip = require 'luasnip'
 local npairs = require('nvim-autopairs')
 
 local source_mapping = {
@@ -72,7 +73,7 @@ cmp.setup({
         ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
-            elseif vim.fn["luasnip#expand_or_jumpable()"] then
+            elseif luasnip.expand_or_jumpable() then
                 feedkey("<Plug>luasnip-expand-or-jump", "")
             elseif has_words_before() then
                 cmp.complete()
@@ -83,8 +84,10 @@ cmp.setup({
         ["<S-Tab>"] = cmp.mapping(function()
             if cmp.visible() then
                 cmp.select_prev_item()
-            else
+            elseif luasnip.jumpable(-1) then
                 feedkey("<cmd>lua require'luasnip'.jump(-1)<CR>", "")
+            else
+                fallback()
             end
         end, { "i", "s" })
     }),
