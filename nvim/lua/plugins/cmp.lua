@@ -103,7 +103,10 @@ cmp.setup({
                 max_matches = 10
             }
         },
-    })
+    }),
+    experimental = {
+        ghost_text = true
+    }
 })
 
 -- Set configuration for specific filetype.
@@ -119,7 +122,13 @@ cmp.setup.filetype('gitcommit', {
 cmp.setup.cmdline('/', {
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
-        { name = 'fuzzy_buffer' }
+        {
+            name = 'fuzzy_buffer',
+            option = {
+                max_buffer_lines = 150000,
+                max_matches = 10
+            }
+        },
     }
 })
 
