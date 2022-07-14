@@ -70,6 +70,12 @@ return require('packer').startup(function()
             })
         end,
     }
+    use {
+        "smjonas/inc-rename.nvim",
+        config = function()
+            require("inc_rename").setup()
+        end,
+    }
 
     -- Debug adapter protocol
     use "mfussenegger/nvim-dap"
