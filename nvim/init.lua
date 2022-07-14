@@ -1,5 +1,6 @@
 ---@diagnostic disable: undefined-global
 vim.g.mapleader = " "
+vim.cmd [[set shell=/bin/bash ]]
 
 require('sets')
 require('plugins')
@@ -19,7 +20,7 @@ require('plugins.treesitter')
 require('plugins.ufo')
 require('plugins.dap')
 require('plugins.refactoring')
-require('plugins.template')
+-- require('plugins.template')
 
 -- for switching between projects
 vim.api.nvim_set_keymap('n', '<c-f>', ':silent !tmux neww tmux-sessionizer<CR>', { noremap = true })
