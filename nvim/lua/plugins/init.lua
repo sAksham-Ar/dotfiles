@@ -11,7 +11,6 @@ return require('packer').startup(function()
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate'
     }
-    use 'nvim-treesitter/nvim-treesitter-context'
     use 'nvim-treesitter/nvim-treesitter-textobjects'
 
     use {
@@ -66,6 +65,7 @@ return require('packer').startup(function()
             require("null-ls").setup({
                 sources = {
                     require("null-ls").builtins.formatting.black,
+                    require("null_ls").builtins.formatting.rustfmt
                 },
             })
         end,
@@ -75,6 +75,10 @@ return require('packer').startup(function()
         config = function()
             require("inc_rename").setup()
         end,
+    }
+    use {
+        "SmiteshP/nvim-navic",
+        requires = "neovim/nvim-lspconfig"
     }
 
     -- Debug adapter protocol

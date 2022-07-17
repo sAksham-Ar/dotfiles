@@ -12,7 +12,9 @@ local source_mapping = {
     cmp_tabnine = "[TN]",
     fuzzy_path = "[FPath]",
 }
-npairs.setup()
+npairs.setup {
+    check_ts = true
+}
 
 local compare = require('cmp.config.compare')
 cmp.setup({
