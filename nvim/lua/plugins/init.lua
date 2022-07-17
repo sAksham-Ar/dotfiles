@@ -76,11 +76,6 @@ return require('packer').startup(function()
             require("inc_rename").setup()
         end,
     }
-    use {
-        "SmiteshP/nvim-navic",
-        requires = "neovim/nvim-lspconfig"
-    }
-
     -- Debug adapter protocol
     use "mfussenegger/nvim-dap"
     use "rcarriga/nvim-dap-ui"
