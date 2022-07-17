@@ -7,6 +7,13 @@ saga.init_lsp_saga {
         sign_priority = 20,
         virtual_text = true,
     },
+    symbol_in_winbar = {
+        in_custom = false,
+        enable = true,
+        separator = '  ',
+        show_file = true,
+        click_support = false,
+    },
 }
 vim.keymap.set("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", { silent = true, noremap = true })
 vim.keymap.set("v", "<leader>ca", "<cmd><C-U>Lspsaga range_code_action<CR>", { silent = true, noremap = true })

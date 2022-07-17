@@ -102,4 +102,3 @@ vim.api.nvim_create_autocmd("BufWritePost", {
     group = au_utils
 })
 
-vim.o.winbar = "%m %f %{%v:lua.require'nvim-navic'.get_location()%}"
