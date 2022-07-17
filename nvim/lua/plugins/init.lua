@@ -65,7 +65,7 @@ return require('packer').startup(function()
             require("null-ls").setup({
                 sources = {
                     require("null-ls").builtins.formatting.black,
-                    require("null_ls").builtins.formatting.rustfmt
+                    require("null-ls").builtins.formatting.rustfmt
                 },
             })
         end,
