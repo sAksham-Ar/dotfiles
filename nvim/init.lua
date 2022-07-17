@@ -1,7 +1,6 @@
 ---@diagnostic disable: undefined-global
 vim.g.mapleader = " "
 vim.cmd [[set shell=/bin/bash ]]
-
 require('sets')
 require('plugins')
 
@@ -102,3 +101,5 @@ vim.api.nvim_create_autocmd("BufWritePost", {
     command = ":lua require('lint').try_lint()",
     group = au_utils
 })
+
+vim.o.winbar = "%m %f %{%v:lua.require'nvim-navic'.get_location()%}"
