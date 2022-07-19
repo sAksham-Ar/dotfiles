@@ -28,6 +28,13 @@ return require('packer').startup(function()
         },
         tag = 'nightly' -- optional, updated every week. (see issue #1193)
     }
+
+
+    -- db
+    use 'tpope/vim-dadbod'
+    use 'kristijanhusak/vim-dadbod-ui'
+    use 'kristijanhusak/vim-dadbod-completion'
+
     -- utils
     use {
         "windwp/nvim-autopairs",

@@ -19,6 +19,7 @@ require('plugins.treesitter')
 require('plugins.ufo')
 require('plugins.dap')
 require('plugins.refactoring')
+require('plugins.db')
 -- require('plugins.template')
 
 -- for switching between projects
