@@ -34,8 +34,6 @@ vim.api.nvim_set_keymap('n', '<leader>f', ':Telescope find_files<CR>', { noremap
 vim.api.nvim_set_keymap('n', '<leader>s', ':Telescope live_grep<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>b', ':Telescope current_buffer_fuzzy_find<CR>', { noremap = true1 })
 
--- Telescope harpoon
-vim.api.nvim_set_keymap('n', '<leader>hf', ':Telescope harpoon marks<CR>', { noremap = true })
 
 -- Telescope git-worktree
 vim.api.nvim_set_keymap('n', '<leader>wf', ':lua require(\'telescope\').extensions.git_worktree.git_worktrees()<CR>',
@@ -45,6 +43,7 @@ vim.api.nvim_set_keymap('n', '<leader>wc',
     { noremap = true })
 
 -- harpoon
+vim.api.nvim_set_keymap('n', '<leader>hf', ':lua require("harpoon.ui").toggle_quick_menu()<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>ha', ':lua require(\'harpoon.mark\').add_file()<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>hn', ':lua require(\'harpoon.ui\').nav_next()<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>hp', ':lua require(\'harpoon.ui\').nav_prev()<CR>', { noremap = true })
