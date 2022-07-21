@@ -42,3 +42,6 @@ vim.cmd [[ set undodir=~/.vim/undodir]]
 
 -- for completion in commands
 vim.cmd [[ set completeopt=menu,menuone,noselect ]]
+
+-- enable cursor
+vim.cmd [[set mouse=a]]
