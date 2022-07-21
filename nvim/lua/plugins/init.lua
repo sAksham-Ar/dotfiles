@@ -1,7 +1,20 @@
+vim.fn.setenv("MACOSX_DEPLOYMENT_TARGET", "10.15")
+
 ---@diagnostic disable: undefined-global
 return require('packer').startup(function()
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
+
+    -- per project settings
+    use {
+        'windwp/nvim-projectconfig',
+        config = function()
+            require('nvim-projectconfig').setup({
+                project_dir = "~/.config/projects-config/",
+            })
+        end
+
+    }
 
     -- color theme
     use 'marko-cerovac/material.nvim'
@@ -34,6 +47,8 @@ return require('packer').startup(function()
     use 'tpope/vim-dadbod'
     use 'kristijanhusak/vim-dadbod-ui'
     use 'kristijanhusak/vim-dadbod-completion'
+
+    use { 'thibthib18/mongo-nvim', rocks = { 'lua-mongo' } }
 
     -- utils
     use {
@@ -73,7 +88,7 @@ return require('packer').startup(function()
             require("null-ls").setup({
                 sources = {
                     require("null-ls").builtins.formatting.black,
-                    require("null-ls").builtins.formatting.rustfmt
+                    require("null-ls").builtins.formatting.rustfmt,
                 },
             })
         end,
@@ -153,9 +168,6 @@ return require('packer').startup(function()
             })
         end
     }
-
-    -- lint
-    use 'mfussenegger/nvim-lint'
 
     -- autocomplete
     use {

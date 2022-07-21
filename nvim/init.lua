@@ -42,6 +42,9 @@ vim.api.nvim_set_keymap('n', '<leader>wc',
     ':lua require(\'telescope\').extensions.git_worktree.create_git_worktree()<CR>',
     { noremap = true })
 
+-- Telescope harpoon
+vim.api.nvim_set_keymap('n', '<leader>ht', ':Telescope harpoon marks<CR>', { noremap = true })
+
 -- harpoon
 vim.api.nvim_set_keymap('n', '<leader>hf', ':lua require("harpoon.ui").toggle_quick_menu()<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>ha', ':lua require(\'harpoon.mark\').add_file()<CR>', { noremap = true })
@@ -82,6 +85,11 @@ vim.api.nvim_set_keymap("n", "<leader>xq", "<cmd>Trouble quickfix<cr>",
     { silent = true, noremap = true }
 )
 
+
+-- dadbod
+vim.api.nvim_set_keymap("n", "<leader>du", "<cmd>DBUIToggle<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>da", "<cmd>DBUIAddConnection<CR>", { noremap = true })
+
 -- treesitter
 local opts = { noremap = true, silent = true }
 vim.api.nvim_set_keymap("n", "<Leader>nf", ":lua require('neogen').generate()<CR>", opts)
@@ -96,9 +104,12 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     group = au_utils
 })
 
--- lint
-vim.api.nvim_create_autocmd("BufWritePost", {
-    command = ":lua require('lint').try_lint()",
-    group = au_utils
+-- for autocompiling packer
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+    group = group_name,
+    pattern = {
+        "plugins/init.lua",
+    },
+    command = "source <afile> | PackerCompile",
+    once = false,
 })
-

@@ -101,7 +101,6 @@ cmp.setup({
         {
             name = 'fuzzy_buffer',
             option = {
-                max_buffer_lines = 150000,
                 max_matches = 10
             }
         },
@@ -127,7 +126,6 @@ cmp.setup.cmdline('/', {
         {
             name = 'fuzzy_buffer',
             option = {
-                max_buffer_lines = 150000,
                 max_matches = 10
             }
         },
