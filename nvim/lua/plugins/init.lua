@@ -99,6 +99,7 @@ return require('packer').startup(function()
             require("inc_rename").setup()
         end,
     }
+    use 'jose-elias-alvarez/typescript.nvim'
     -- Debug adapter protocol
     use "mfussenegger/nvim-dap"
     use "rcarriga/nvim-dap-ui"
