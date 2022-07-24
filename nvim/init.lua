@@ -106,9 +106,9 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 
 -- for autocompiling packer
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-    group = group_name,
+    group = au_utils,
     pattern = {
-        "plugins/init.lua",
+        "init.lua",
     },
     command = "source <afile> | PackerCompile",
     once = false,

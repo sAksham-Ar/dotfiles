@@ -1,6 +1,5 @@
 vim.fn.setenv("MACOSX_DEPLOYMENT_TARGET", "10.15")
 
----@diagnostic disable: undefined-global
 return require('packer').startup(function()
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
@@ -88,7 +87,6 @@ return require('packer').startup(function()
             require("null-ls").setup({
                 sources = {
                     require("null-ls").builtins.formatting.black,
-                    require("null-ls").builtins.formatting.rustfmt,
                 },
             })
         end,
