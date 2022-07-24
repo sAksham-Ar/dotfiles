@@ -66,6 +66,9 @@ return require('packer').startup(function()
         end
     })
 
+    -- move line with indent
+    use 'fedepujol/move.nvim'
+
     -- lsp stuff
     use {
         "williamboman/mason.nvim",
