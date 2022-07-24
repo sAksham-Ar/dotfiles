@@ -48,10 +48,10 @@ capabilities.textDocument.foldingRange = {
     lineFoldingOnly = true
 }
 
-local lsp_installer = require("nvim-lsp-installer")
 local lspconfig = require("lspconfig")
+require("mason").setup()
+require("mason-lspconfig").setup()
 
-lsp_installer.setup {}
 
 lspconfig.util.default_config = vim.tbl_extend(
     "force",
@@ -63,8 +63,8 @@ lspconfig.util.default_config = vim.tbl_extend(
     }
 )
 
-for _, server in ipairs(lsp_installer.get_installed_servers()) do
-    if server.name == 'clangd'
+for _, server in ipairs(require("mason-lspconfig").get_installed_servers()) do
+    if server== 'clangd'
     then
         require("clangd_extensions").setup {
             server = {
@@ -73,7 +73,18 @@ for _, server in ipairs(lsp_installer.get_installed_servers()) do
                 capabilities = capabilities
             }
         }
+    elseif server == 'tsserver'
+    then
+        require("typescript").setup({
+            disable_commands = false, -- prevent the plugin from creating Vim commands
+            debug = false, -- enable debug logging for commands
+            server = { -- pass options to lspconfig's setup method
+                on_attach = on_attach,
+                flags = lsp_flags,
+                capabilities = capabilities
+            },
+        })
     else
-        lspconfig[server.name].setup {}
+        lspconfig[server].setup {}
     end
 end

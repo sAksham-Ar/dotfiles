@@ -1,6 +1,5 @@
 vim.fn.setenv("MACOSX_DEPLOYMENT_TARGET", "10.15")
 
----@diagnostic disable: undefined-global
 return require('packer').startup(function()
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
@@ -69,7 +68,8 @@ return require('packer').startup(function()
 
     -- lsp stuff
     use {
-        "williamboman/nvim-lsp-installer",
+        "williamboman/mason.nvim",
+        'williamboman/mason-lspconfig.nvim',
         "neovim/nvim-lspconfig",
     }
     use({
@@ -88,7 +88,6 @@ return require('packer').startup(function()
             require("null-ls").setup({
                 sources = {
                     require("null-ls").builtins.formatting.black,
-                    require("null-ls").builtins.formatting.rustfmt,
                 },
             })
         end,
@@ -99,6 +98,7 @@ return require('packer').startup(function()
             require("inc_rename").setup()
         end,
     }
+    use 'jose-elias-alvarez/typescript.nvim'
     -- Debug adapter protocol
     use "mfussenegger/nvim-dap"
     use "rcarriga/nvim-dap-ui"
