@@ -17,23 +17,6 @@ npairs.setup {
 }
 
 local compare = require('cmp.config.compare')
-cmp.setup({
-    sorting = {
-        priority_weight = 2,
-        comparators = {
-            require('cmp_tabnine.compare'),
-            require('cmp_fuzzy_buffer.compare'),
-            compare.offset,
-            compare.exact,
-            compare.score,
-            compare.recently_used,
-            compare.kind,
-            compare.sort_text,
-            compare.length,
-            compare.order,
-        },
-    },
-})
 
 local has_words_before = function()
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -105,6 +88,21 @@ cmp.setup({
             }
         },
     }),
+    sorting = {
+        priority_weight = 2,
+        comparators = {
+            require('cmp_tabnine.compare'),
+            require('cmp_fuzzy_buffer.compare'),
+            compare.offset,
+            compare.exact,
+            compare.score,
+            compare.recently_used,
+            compare.kind,
+            compare.sort_text,
+            compare.length,
+            compare.order,
+        },
+    },
     experimental = {
         ghost_text = true
     }

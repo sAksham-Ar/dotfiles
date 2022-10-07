@@ -17,6 +17,9 @@ return require('packer').startup(function()
 
     -- color theme
     use 'marko-cerovac/material.nvim'
+    use { 'stevearc/dressing.nvim', config = function()
+        require('dressing').setup()
+    end }
 
     -- essential
     use {
@@ -65,6 +68,16 @@ return require('packer').startup(function()
             })
         end
     })
+    use {
+        "folke/which-key.nvim",
+        config = function()
+            require("which-key").setup {
+                -- your configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+            }
+        end
+    }
 
     -- move line with indent
     use 'fedepujol/move.nvim'
@@ -98,10 +111,14 @@ return require('packer').startup(function()
     use {
         "smjonas/inc-rename.nvim",
         config = function()
-            require("inc_rename").setup()
+            require("inc_rename").setup {
+                input_buffer_type = "dressing",
+
+            }
         end,
     }
     use 'jose-elias-alvarez/typescript.nvim'
+    use 'mfussenegger/nvim-lint'
     -- Debug adapter protocol
     use "mfussenegger/nvim-dap"
     use "rcarriga/nvim-dap-ui"
@@ -151,12 +168,10 @@ return require('packer').startup(function()
     }
 
     -- markdown stuff
-    use {
-        'lukas-reineke/headlines.nvim',
-        config = function()
-            require('headlines').setup()
-        end,
-    }
+    use({
+        "iamcco/markdown-preview.nvim",
+        run = function() vim.fn["mkdp#util#install"]() end,
+    })
 
     -- comments
     use {
@@ -200,9 +215,9 @@ return require('packer').startup(function()
     -- cp
     use {
         'xeluxee/competitest.nvim',
-        requires = 'MunifTanjim/nui.nvim',
+        requires = { 'MunifTanjim/nui.nvim' },
     }
-    -- use { 'glepnir/template.nvim' }
+    use { 'glepnir/template.nvim' }
 
     -- status bar
     use {

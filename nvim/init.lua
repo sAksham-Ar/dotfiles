@@ -20,7 +20,8 @@ require('plugins.ufo')
 require('plugins.dap')
 require('plugins.refactoring')
 require('plugins.db')
--- require('plugins.template')
+require('plugins.template')
+require('plugins.snips')
 
 -- for switching between projects
 vim.api.nvim_set_keymap('n', '<c-f>', ':silent !tmux neww tmux-sessionizer<CR>', { noremap = true })
@@ -122,4 +123,11 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
     },
     command = "source <afile> | PackerCompile",
     once = false,
+})
+
+-- linting
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+  callback = function()
+    require("lint").try_lint()
+  end,
 })
