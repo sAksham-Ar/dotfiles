@@ -58,7 +58,7 @@ cmp.setup({
         ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
-            elseif luasnip.expand_or_jumpable() then
+            elseif luasnip.expand_or_locally_jumpable() then
                 feedkey("<Plug>luasnip-expand-or-jump", "")
             elseif has_words_before() then
                 cmp.complete()

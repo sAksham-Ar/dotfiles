@@ -63,7 +63,7 @@ dap.adapters.codelldb = {
     type = 'server',
     port = "${port}",
     executable = {
-        command = '/home/saksham/.local/share/nvim/mason/bin/codelldb',
+        command = vim.fn.expand('~/.local/share/nvim/mason/bin/codelldb'),
         args = { "--port", "${port}" },
         -- On windows you may have to uncomment this:
         -- detached = false,
@@ -83,7 +83,7 @@ dap.configurations.c = dap.configurations.cpp
 
 dap.adapters.python = {
     type = 'executable';
-    command = '/home/saksham/.local/share/nvim/mason/bin/debugpy-adapter';
+    command = vim.fn.expand('~/.local/share/nvim/mason/bin/debugpy-adapter');
 }
 dap.configurations.python = {
     {

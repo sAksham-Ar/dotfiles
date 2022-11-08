@@ -30,8 +30,8 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', 'ga', require('telescope.builtin').diagnostics, bufopts)
 
     -- formatting
-    vim.keymap.set('n', '<leader>p', vim.lsp.buf.formatting, bufopts)
-    vim.keymap.set('v', '<leader>p', vim.lsp.buf.range_formatting, bufopts)
+    vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format { async = true } end, bufopts)
+    vim.keymap.set('v', '<leader>p', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
 local lsp_flags = {
@@ -40,7 +40,7 @@ local lsp_flags = {
 }
 
 ---- Setup lspconfig.
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 -- local coq = require('coq')
 -- local capabilities = coq.lsp_ensure_capabilities(vim.lsp.protocol.make_client_capabilities())
 capabilities.textDocument.foldingRange = {
@@ -64,7 +64,7 @@ lspconfig.util.default_config = vim.tbl_extend(
 )
 
 for _, server in ipairs(require("mason-lspconfig").get_installed_servers()) do
-    if server== 'clangd'
+    if server == 'clangd'
     then
         require("clangd_extensions").setup {
             server = {

@@ -50,8 +50,6 @@ return require('packer').startup(function()
     use 'kristijanhusak/vim-dadbod-ui'
     use 'kristijanhusak/vim-dadbod-completion'
 
-    use { 'thibthib18/mongo-nvim', rocks = { 'lua-mongo' } }
-
     -- utils
     use {
         "windwp/nvim-autopairs",
@@ -78,6 +76,15 @@ return require('packer').startup(function()
             }
         end
     }
+use({
+	"Pocco81/auto-save.nvim",
+	config = function()
+		 require("auto-save").setup {
+			-- your config goes here
+			-- or just leave it empty :)
+		 }
+	end,
+})
 
     -- move line with indent
     use 'fedepujol/move.nvim'
@@ -180,8 +187,7 @@ return require('packer').startup(function()
             require('Comment').setup({
                 mappings = {
                     basic = true,
-                    extra = true,
-                    extended = true
+                    extra = true
                 }
             })
         end
