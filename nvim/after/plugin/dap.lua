@@ -7,7 +7,6 @@ local map = function(lhs, rhs, desc)
 end
 
 require("dapui").setup()
-require('dap-go').setup()
 
 
 local dap, dapui = require("dap"), require("dapui")

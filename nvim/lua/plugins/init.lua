@@ -17,6 +17,14 @@ return require('packer').startup(function()
 
     -- color theme
     use 'marko-cerovac/material.nvim'
+    use { "catppuccin/nvim", as = "catppuccin", config = function()
+        require("catppuccin").setup {
+            integrations = {
+                neotree = true,
+                treesitter_context = true,
+            }
+        }
+    end }
     use { 'stevearc/dressing.nvim', config = function()
         require('dressing').setup()
     end }
@@ -37,11 +45,34 @@ return require('packer').startup(function()
 
     -- file browser
     use {
-        'kyazdani42/nvim-tree.lua',
+        "nvim-neo-tree/neo-tree.nvim",
+        branch = "v2.x",
         requires = {
-            'kyazdani42/nvim-web-devicons', -- optional, for file icons
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+            "MunifTanjim/nui.nvim",
         },
-        tag = 'nightly' -- optional, updated every week. (see issue #1193)
+        config = function()
+            vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
+
+            -- If you want icons for diagnostic errors, you'll need to define them somewhere:
+            vim.fn.sign_define("DiagnosticSignError",
+                { text = " ", texthl = "DiagnosticSignError" })
+            vim.fn.sign_define("DiagnosticSignWarn",
+                { text = " ", texthl = "DiagnosticSignWarn" })
+            vim.fn.sign_define("DiagnosticSignInfo",
+                { text = " ", texthl = "DiagnosticSignInfo" })
+            vim.fn.sign_define("DiagnosticSignHint",
+                { text = "", texthl = "DiagnosticSignHint" })
+
+            vim.cmd([[nnoremap \ :Neotree toggle<cr>]])
+            require("neo-tree").setup({
+                filesystem = {
+                    hijack_netrw_behavior = "open_default",
+                    follow_current_file = true
+                },
+            })
+        end
     }
 
 
@@ -55,9 +86,10 @@ return require('packer').startup(function()
         "windwp/nvim-autopairs",
     }
     use 'mbbill/undotree'
+    use 'christoomey/vim-tmux-navigator'
     use 'ThePrimeagen/harpoon'
     use { 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' }
-    use "lukas-reineke/indent-blankline.nvim"
+    use { "lukas-reineke/indent-blankline.nvim", main="ibl", opts={}}
     use({
         "kylechui/nvim-surround",
         config = function()
@@ -77,13 +109,14 @@ return require('packer').startup(function()
         end
     }
     use({
-        "Pocco81/auto-save.nvim",
+        "gbprod/substitute.nvim",
         config = function()
-            require("auto-save").setup {
-                -- your config goes here
-                -- or just leave it empty :)
-            }
-        end,
+            require("substitute").setup({
+                -- your configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+            })
+        end
     })
 
     -- move line with indent
@@ -104,15 +137,42 @@ return require('packer').startup(function()
     }
     use 'nvim-lua/lsp_extensions.nvim'
     use 'simrat39/rust-tools.nvim'
+    use {
+        "folke/neodev.nvim"
+    }
+    use {
+        'ray-x/go.nvim',
+        config = function()
+            require("go").setup()
+        end,
+    }
+    use 'ray-x/guihua.lua' -- recommended if need floating window support
     use 'simrat39/symbols-outline.nvim'
     use 'p00f/clangd_extensions.nvim'
     use { 'jose-elias-alvarez/null-ls.nvim',
         config = function()
-            require("null-ls").setup({
-                sources = {
-                    require("null-ls").builtins.formatting.black,
-                },
-            })
+            local null_ls = require("null-ls")
+            local sources = {
+                -- null_ls.builtins.diagnostics.revive,
+                -- null_ls.builtins.formatting.golines.with({
+                --     extra_args = {
+                --         "--max-len=180",
+                --         "--base-formatter=gofumpt",
+                --     },
+                -- }),
+                null_ls.builtins.formatting.black,
+                null_ls.builtins.formatting.prettierd,
+                null_ls.builtins.formatting.buf,
+                require("typescript.extensions.null-ls.code-actions"),
+            }
+            -- for go.nvim
+            local gotest = require("go.null_ls").gotest()
+            local gotest_codeaction = require("go.null_ls").gotest_action()
+            local golangci_lint = require("go.null_ls").golangci_lint()
+            table.insert(sources, gotest)
+            -- table.insert(sources, golangci_lint)
+            table.insert(sources, gotest_codeaction)
+            null_ls.setup({ sources = sources, debounce = 1000, default_timeout = 5000 })
         end,
     }
     use {
@@ -132,7 +192,6 @@ return require('packer').startup(function()
     use "theHamsta/nvim-dap-virtual-text"
     use "nvim-telescope/telescope-dap.nvim"
 
-    use 'leoluz/nvim-dap-go'
 
     use {
         'ericpubu/lsp_codelens_extensions.nvim',
@@ -229,5 +288,4 @@ return require('packer').startup(function()
     use {
         'nvim-lualine/lualine.nvim',
     }
-
 end)

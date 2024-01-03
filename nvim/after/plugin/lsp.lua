@@ -1,4 +1,7 @@
 ---@diagnostic disable: undefined-global
+require("neodev").setup({
+    -- add any options here, or leave empty to use the default settings
+})
 local opts = { noremap = true, silent = true }
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
@@ -62,6 +65,15 @@ lspconfig.util.default_config = vim.tbl_extend(
         capabilities = capabilities
     }
 )
+require('go').setup({
+  -- other setups ....
+  lsp_cfg = {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    flags = lsp_flags,
+    -- other setups
+  },
+})
 
 for _, server in ipairs(require("mason-lspconfig").get_installed_servers()) do
     if server == 'clangd'
@@ -77,8 +89,11 @@ for _, server in ipairs(require("mason-lspconfig").get_installed_servers()) do
     then
         require("typescript").setup({
             disable_commands = false, -- prevent the plugin from creating Vim commands
-            debug = false, -- enable debug logging for commands
-            server = { -- pass options to lspconfig's setup method
+            debug = false,            -- enable debug logging for commands
+            go_to_source_definition = {
+                fallback = true,      -- fall back to standard LSP definition on failure
+            },
+            server = {                -- pass options to lspconfig's setup method
                 on_attach = on_attach,
                 flags = lsp_flags,
                 capabilities = capabilities

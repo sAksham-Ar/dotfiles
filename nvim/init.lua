@@ -4,25 +4,6 @@ vim.cmd [[set shell=/bin/bash ]]
 require('sets')
 require('plugins')
 
--- setting up plugins
-require('plugins.cmp')
-require('plugins.colors')
-require('plugins.compitest')
-require('plugins.git')
-require('plugins.lsp')
-require('plugins.lspsaga')
-require('plugins.lualine')
-require('plugins.rust')
-require('plugins.telescope')
-require('plugins.tree')
-require('plugins.treesitter')
-require('plugins.ufo')
-require('plugins.dap')
-require('plugins.refactoring')
-require('plugins.db')
-require('plugins.template')
-require('plugins.snips')
-
 -- for switching between projects
 vim.api.nvim_set_keymap('n', '<c-f>', ':silent !tmux neww tmux-sessionizer<CR>', { noremap = true })
 
@@ -96,24 +77,31 @@ local opts = { noremap = true, silent = true }
 vim.api.nvim_set_keymap("n", "<Leader>nf", ":lua require('neogen').generate()<CR>", opts)
 
 -- move line with indent
-vim.api.nvim_set_keymap('n', '<A-j>', ":MoveLine(1)<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<A-k>', ":MoveLine(-1)<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<A-j>', ":MoveBlock(1)<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<A-k>', ":MoveBlock(-1)<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<A-l>', ":MoveHChar(1)<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<A-h>', ":MoveHChar(-1)<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<A-l>', ":MoveHBlock(1)<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<A-h>', ":MoveHBlock(-1)<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>j', ":MoveLine(1)<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<leader>j', ":MoveBlock(1)<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>k', ":MoveLine(-1)<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<leader>k', ":MoveBlock(-1)<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>l', ":MoveHChar(1)<CR>", { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<leader>h', ":MoveHChar(-1)<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<leader>l', ":MoveHBlock(1)<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<leader>h', ":MoveHBlock(-1)<CR>", { noremap = true, silent = true })
+
+
+-- substitute
+-- vim.keymap.set("n", "<leader>r", require('substitute').operator, { noremap = true })
+vim.keymap.set("n", "<leader>rr", require('substitute').line, { noremap = true })
+vim.keymap.set("n", "<leader>S", require('substitute').eol, { noremap = true })
+vim.keymap.set("x", "<leader>s", require('substitute').visual, { noremap = true })
 
 -- auto commands
 local au_utils = vim.api.nvim_create_augroup("Utils", { clear = true })
 
 -- trim trailing whitespace
-vim.api.nvim_create_autocmd("BufWritePre", {
-    pattern = "*",
-    command = "%s/\\s\\+$//e",
-    group = au_utils
-})
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+--     pattern = "*",
+--     command = "%s/\\s\\+$//e",
+--     group = au_utils
+-- })
 
 -- for autocompiling packer
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
@@ -127,7 +115,17 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 
 -- linting
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-  callback = function()
-    require("lint").try_lint()
-  end,
+    callback = function()
+        require("lint").try_lint()
+    end,
+})
+
+
+local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
+vim.api.nvim_create_autocmd("BufWritePre", {
+    pattern = "*.go",
+    callback = function()
+        require('go.format').goimport()
+    end,
+    group = format_sync_grp,
 })
