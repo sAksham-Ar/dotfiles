@@ -1,11 +1,8 @@
----@diagnostic disable: undefined-global
 vim.g.mapleader = " "
 vim.cmd [[set shell=/bin/bash ]]
 require('sets')
-require('plugins')
 
--- for switching between projects
-vim.api.nvim_set_keymap('n', '<c-f>', ':silent !tmux neww tmux-sessionizer<CR>', { noremap = true })
+require("config.lazy")
 
 -- extensions
 vim.api.nvim_set_keymap('n', '<leader>u', ':UndotreeToggle<CR>', { noremap = true })
@@ -14,7 +11,8 @@ vim.api.nvim_set_keymap('n', '<leader>g', ':LazyGit<CR>', { noremap = true })
 -- telescope
 vim.api.nvim_set_keymap('n', '<leader>f', ':Telescope find_files<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>s', ':Telescope live_grep<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>b', ':Telescope current_buffer_fuzzy_find<CR>', { noremap = true1 })
+vim.api.nvim_set_keymap('n', '<leader>b', ':Telescope current_buffer_fuzzy_find<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>c', ':Telescope commands<CR>', { noremap = true })
 
 
 -- Telescope git-worktree
@@ -24,18 +22,6 @@ vim.api.nvim_set_keymap('n', '<leader>wc',
     ':lua require(\'telescope\').extensions.git_worktree.create_git_worktree()<CR>',
     { noremap = true })
 
--- Telescope harpoon
-vim.api.nvim_set_keymap('n', '<leader>ht', ':Telescope harpoon marks<CR>', { noremap = true })
-
--- harpoon
-vim.api.nvim_set_keymap('n', '<leader>hf', ':lua require("harpoon.ui").toggle_quick_menu()<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>ha', ':lua require(\'harpoon.mark\').add_file()<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>hn', ':lua require(\'harpoon.ui\').nav_next()<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>hp', ':lua require(\'harpoon.ui\').nav_prev()<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>hj', ':lua require(\'harpoon.ui\').nav_file(1)<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>hk', ':lua require(\'harpoon.ui\').nav_file(2)<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>hl', ':lua require(\'harpoon.ui\').nav_file(3)<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>h;', ':lua require(\'harpoon.ui\').nav_file(4)<CR>', { noremap = true })
 
 -- movement b/w windows
 vim.api.nvim_set_keymap('n', '<leader>vk', ':wincmd k<CR>', { noremap = true })
@@ -45,10 +31,10 @@ vim.api.nvim_set_keymap('n', '<leader>vl', ':wincmd l<CR>', { noremap = true })
 
 
 -- compitest
-vim.api.nvim_set_keymap('n', '<leader>cpr', ':CompetiTestReceive<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>cpt', ':CompetiTestRun<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>cpa', ':CompetiTestAdd<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>cpe', ':CompetiTestEdit<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>cpr', ':CompetiTest receive contest<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>cpt', ':CompetiTest run<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>cpa', ':CompetiTest add_testcase<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>cpe', ':CompetiTest edit_testcase<CR>', { noremap = true })
 
 -- trouble
 vim.api.nvim_set_keymap("n", "<leader>xx", "<cmd>Trouble<cr>",
@@ -93,6 +79,8 @@ vim.keymap.set("n", "<leader>rr", require('substitute').line, { noremap = true }
 vim.keymap.set("n", "<leader>S", require('substitute').eol, { noremap = true })
 vim.keymap.set("x", "<leader>s", require('substitute').visual, { noremap = true })
 
+vim.keymap.set("n", "<leader>mvp", ":Gomvp<CR>", { noremap = true })
+
 -- auto commands
 local au_utils = vim.api.nvim_create_augroup("Utils", { clear = true })
 
@@ -103,29 +91,14 @@ local au_utils = vim.api.nvim_create_augroup("Utils", { clear = true })
 --     group = au_utils
 -- })
 
--- for autocompiling packer
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-    group = au_utils,
-    pattern = {
-        "init.lua",
-    },
-    command = "source <afile> | PackerCompile",
-    once = false,
-})
-
--- linting
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-    callback = function()
-        require("lint").try_lint()
-    end,
-})
-
-
-local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
+local format_sync_grp = vim.api.nvim_create_augroup("goimports", {})
 vim.api.nvim_create_autocmd("BufWritePre", {
-    pattern = "*.go",
-    callback = function()
-        require('go.format').goimport()
-    end,
-    group = format_sync_grp,
+  pattern = "*.go",
+  callback = function()
+   require('go.format').goimports()
+  end,
+  group = format_sync_grp,
 })
+
+-- for switching between projects
+vim.api.nvim_set_keymap('n', '<c-f>', ':silent !tmux neww tmux-sessionizer<CR>', { noremap = true })

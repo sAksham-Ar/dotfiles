@@ -1,6 +1,7 @@
 require 'nvim-treesitter.configs'.setup {
-    ensure_installed = { "c", "cpp", "rust", "lua", "python", "php", "phpdoc", "javascript", "json", "typescript", "tsx",
-        "comment", "yaml", "html", "markdown", "markdown_inline", "css" },
+    ensure_installed = { "c", "cpp", "rust", "lua", "python", "php", "phpdoc", "javascript", "json", "typescript",
+        "tsx",
+        "comment", "yaml", "html", "markdown", "markdown_inline", "css","go" },
     highlight = {
         enable = true,
         -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
@@ -38,7 +39,7 @@ require 'nvim-treesitter.configs'.setup {
         },
         move = {
             enable = true,
-            set_jumps = true, -- whether to set jumps in the jumplist
+            set_jumps = true,         -- whether to set jumps in the jumplist
             goto_next_start = {
                 ["]m"] = "@function.outer",
                 ["]]"] = "@class.outer",
@@ -65,5 +66,8 @@ require 'nvim-treesitter.configs'.setup {
             scope_incremental = "grc",
             node_decremental = "grm",
         },
-    }
+    },
+    autotag = {
+        enable = true,
+    },
 }

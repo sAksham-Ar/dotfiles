@@ -2,6 +2,26 @@
 require("neodev").setup({
     -- add any options here, or leave empty to use the default settings
 })
+
+local function filter(arr, fn)
+    if type(arr) ~= "table" then
+        return arr
+    end
+
+    local filtered = {}
+    for k, v in pairs(arr) do
+        if fn(v, k, arr) then
+            table.insert(filtered, v)
+        end
+    end
+
+    return filtered
+end
+
+local function filterReactDTS(value)
+    return string.match(value.targetUri, '%.d.ts') == nil
+end
+
 local opts = { noremap = true, silent = true }
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
@@ -66,39 +86,44 @@ lspconfig.util.default_config = vim.tbl_extend(
     }
 )
 require('go').setup({
-  -- other setups ....
-  lsp_cfg = {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    flags = lsp_flags,
-    -- other setups
-  },
+    -- other setups ....
+    lsp_cfg = {
+        on_attach = on_attach,
+        capabilities = capabilities,
+        flags = lsp_flags,
+        -- other setups
+    },
 })
 
+require("clangd_extensions").setup {
+    server = {
+        on_attach = on_attach,
+        flags = lsp_flags,
+        capabilities = capabilities
+    }
+}
+
 for _, server in ipairs(require("mason-lspconfig").get_installed_servers()) do
-    if server == 'clangd'
+    if server == 'tsserver'
     then
-        require("clangd_extensions").setup {
-            server = {
-                on_attach = on_attach,
-                flags = lsp_flags,
-                capabilities = capabilities
+        require("typescript-tools").setup {
+            settings = {
+                tsserver_plugins = {
+                    "@styled/typescript-styled-plugin",
+                },
+            },
+            on_attach = on_attach,
+            handlers = {
+                ['textDocument/definition'] = function(err, result, method, ...)
+                    if vim.tbl_islist(result) and #result > 1 then
+                        local filtered_result = filter(result, filterReactDTS)
+                        return vim.lsp.handlers['textDocument/definition'](err, filtered_result, method, ...)
+                    end
+
+                    vim.lsp.handlers['textDocument/definition'](err, result, method, ...)
+                end
             }
         }
-    elseif server == 'tsserver'
-    then
-        require("typescript").setup({
-            disable_commands = false, -- prevent the plugin from creating Vim commands
-            debug = false,            -- enable debug logging for commands
-            go_to_source_definition = {
-                fallback = true,      -- fall back to standard LSP definition on failure
-            },
-            server = {                -- pass options to lspconfig's setup method
-                on_attach = on_attach,
-                flags = lsp_flags,
-                capabilities = capabilities
-            },
-        })
     else
         lspconfig[server].setup {}
     end

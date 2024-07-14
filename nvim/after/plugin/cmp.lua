@@ -11,7 +11,10 @@ local source_mapping = {
     nvim_lua = "[Lua]",
     cmp_tabnine = "[TN]",
     fuzzy_path = "[FPath]",
+    copilot = "",
 }
+
+vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
 npairs.setup {
     check_ts = true
 }
@@ -19,8 +22,8 @@ npairs.setup {
 local compare = require('cmp.config.compare')
 local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 cmp.event:on(
-  'confirm_done',
-  cmp_autopairs.on_confirm_done()
+    'confirm_done',
+    cmp_autopairs.on_confirm_done()
 )
 
 local has_words_before = function()
@@ -32,12 +35,34 @@ local feedkey = function(key, mode)
     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
 end
 
+local mapping = cmp.mapping.preset.insert({
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),     -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    ["<Tab>"] = cmp.mapping(function(fallback)
+        -- This little snippet will confirm with tab, and if no entry is selected, will confirm the first item
+        if cmp.visible() then
+            local entry = cmp.get_selected_entry()
+            if not entry then
+                cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+            end
+            cmp.confirm()
+        else
+            fallback()
+        end
+    end, { "i", "s", "c", }),
+});
+
 cmp.setup({
     snippet = {
         expand = function(args)
             require('luasnip').lsp_expand(args.body)
         end,
     },
+    -- preselect = cmp.PreselectMode.None,
+    -- completion = {
+    --     completeopt = 'menu,menuone,preview',
+    -- },
     formatting = {
         format = function(entry, vim_item)
             vim_item.kind = lspkind.presets.default[vim_item.kind]
@@ -56,34 +81,22 @@ cmp.setup({
         completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered(),
     },
-    mapping = cmp.mapping.preset.insert({
-        ['<C-Space>'] = cmp.mapping.complete(),
-        ['<C-e>'] = cmp.mapping.abort(),
-        ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    }),
+    mapping = mapping,
     sources = cmp.config.sources({
-        { name = 'nvim_lsp_signature_help' },
-        { name = 'cmp_tabnine' },
-        { name = 'nvim_lsp' },
-        { name = 'luasnip' },
-        {
-            name = 'fuzzy_buffer',
-            option = {
-                max_matches = 10
-            }
-        },
+        { name = "copilot",                 group_index = 2 },
+        { name = 'nvim_lsp_signature_help', group_index = 2 },
+        { name = 'nvim_lsp',                group_index = 2 },
+        { name = 'luasnip',                 group_index = 2 },
     }),
     sorting = {
         priority_weight = 2,
         comparators = {
-            require('cmp_tabnine.compare'),
-            require('cmp_fuzzy_buffer.compare'),
+            require("copilot_cmp.comparators").prioritize,
             compare.offset,
             compare.exact,
             compare.score,
             compare.recently_used,
+            require("clangd_extensions.cmp_scores"),
             compare.kind,
             compare.sort_text,
             compare.length,
@@ -101,7 +114,8 @@ cmp.setup.filetype('gitcommit', {
         { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
     }, {
         { name = 'fuzzy_buffer' },
-    })
+    }),
+    mapping = mapping,
 })
 
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
@@ -128,12 +142,3 @@ cmp.setup.cmdline(':', {
 })
 
 require("luasnip.loaders.from_vscode").lazy_load()
-
-local tabnine = require("cmp_tabnine.config")
-tabnine:setup({
-    max_lines = 1000,
-    max_num_results = 20,
-    sort = true,
-    run_on_every_keystroke = true,
-    snippet_placeholder = "..",
-})
