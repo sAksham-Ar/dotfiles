@@ -8,19 +8,19 @@ require("config.lazy")
 vim.api.nvim_set_keymap('n', '<leader>u', ':UndotreeToggle<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>g', ':LazyGit<CR>', { noremap = true })
 
--- telescope
-vim.api.nvim_set_keymap('n', '<leader>f', ':Telescope find_files<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>s', ':Telescope live_grep<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>b', ':Telescope current_buffer_fuzzy_find<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>c', ':Telescope commands<CR>', { noremap = true })
-
-
--- Telescope git-worktree
-vim.api.nvim_set_keymap('n', '<leader>wf', ':lua require(\'telescope\').extensions.git_worktree.git_worktrees()<CR>',
-    { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>wc',
-    ':lua require(\'telescope\').extensions.git_worktree.create_git_worktree()<CR>',
-    { noremap = true })
+-- -- telescope
+-- vim.api.nvim_set_keymap('n', '<leader>f', ':Telescope find_files<CR>', { noremap = true })
+-- vim.api.nvim_set_keymap('n', '<leader>s', ':Telescope live_grep<CR>', { noremap = true })
+-- vim.api.nvim_set_keymap('n', '<leader>b', ':Telescope current_buffer_fuzzy_find<CR>', { noremap = true })
+-- vim.api.nvim_set_keymap('n', '<leader>c', ':Telescope commands<CR>', { noremap = true })
+--
+--
+-- -- Telescope git-worktree
+-- vim.api.nvim_set_keymap('n', '<leader>wf', ':lua require(\'telescope\').extensions.git_worktree.git_worktrees()<CR>',
+--     { noremap = true })
+-- vim.api.nvim_set_keymap('n', '<leader>wc',
+--     ':lua require(\'telescope\').extensions.git_worktree.create_git_worktree()<CR>',
+--     { noremap = true })
 
 
 -- movement b/w windows

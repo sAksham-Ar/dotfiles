@@ -49,21 +49,17 @@ local on_attach = function(client, bufnr)
     end, bufopts)
     vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
     vim.keymap.set('n', 'ge', vim.diagnostic.open_float, bufopts)
-    vim.keymap.set('n', 'gr', require('telescope.builtin').lsp_references, bufopts)
-    vim.keymap.set('n', 'ga', require('telescope.builtin').diagnostics, bufopts)
+    vim.keymap.set('n', 'gr', ':FzfLua lsp_references<CR>', bufopts)
+    vim.keymap.set('n', 'ga', ':FzfLua lsp_workspace_diagnostics<CR>', bufopts)
 
     -- formatting
     vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format { async = true } end, bufopts)
     vim.keymap.set('v', '<leader>p', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
-local lsp_flags = {
-    -- This is the default in Nvim 0.7+
-    debounce_text_changes = 150,
-}
-
 ---- Setup lspconfig.
-local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+-- local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('blink.cmp').get_lsp_capabilities(vim.lsp.protocol.make_client_capabilities())
 -- local coq = require('coq')
 -- local capabilities = coq.lsp_ensure_capabilities(vim.lsp.protocol.make_client_capabilities())
 capabilities.textDocument.foldingRange = {
@@ -71,60 +67,7 @@ capabilities.textDocument.foldingRange = {
     lineFoldingOnly = true
 }
 
-local lspconfig = require("lspconfig")
-require("mason").setup()
-require("mason-lspconfig").setup()
-
-
-lspconfig.util.default_config = vim.tbl_extend(
-    "force",
-    lspconfig.util.default_config,
-    {
-        on_attach = on_attach,
-        flags = lsp_flags,
-        capabilities = capabilities
-    }
-)
-require('go').setup({
-    -- other setups ....
-    lsp_cfg = {
-        on_attach = on_attach,
-        capabilities = capabilities,
-        flags = lsp_flags,
-        -- other setups
-    },
+vim.lsp.config('*', {
+  capabilities = capabilities,
+  on_attach = on_attach,
 })
-
-require("clangd_extensions").setup {
-    server = {
-        on_attach = on_attach,
-        flags = lsp_flags,
-        capabilities = capabilities
-    }
-}
-
-for _, server in ipairs(require("mason-lspconfig").get_installed_servers()) do
-    if server == 'tsserver'
-    then
-        require("typescript-tools").setup {
-            settings = {
-                tsserver_plugins = {
-                    "@styled/typescript-styled-plugin",
-                },
-            },
-            on_attach = on_attach,
-            handlers = {
-                ['textDocument/definition'] = function(err, result, method, ...)
-                    if vim.tbl_islist(result) and #result > 1 then
-                        local filtered_result = filter(result, filterReactDTS)
-                        return vim.lsp.handlers['textDocument/definition'](err, filtered_result, method, ...)
-                    end
-
-                    vim.lsp.handlers['textDocument/definition'](err, result, method, ...)
-                end
-            }
-        }
-    else
-        lspconfig[server].setup {}
-    end
-end
