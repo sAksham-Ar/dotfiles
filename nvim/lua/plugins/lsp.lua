@@ -1,6 +1,11 @@
 return {
-    { 'williamboman/mason.nvim' },
-    { 'williamboman/mason-lspconfig.nvim' },
+    { 'mason-org/mason.nvim', opts = {} },
+    { 'mason-org/mason-lspconfig.nvim',
+        opts = {},
+        dependencies = {
+            { "mason-org/mason.nvim", opts = {} },
+            "neovim/nvim-lspconfig",
+    }},
     { 'neovim/nvim-lspconfig' },
     {
         'nvimdev/lspsaga.nvim',
@@ -24,8 +29,12 @@ return {
             "nvim-treesitter/nvim-treesitter",
         },
         config = function()
-            require("go").setup()
+            require("go").setup({
+              dap_debug = true,
+              semanticTokens = false,
+            })
         end,
+        version = "0.10.4",
         event = { "CmdlineEnter" },
         ft = { "go", 'gomod' },
         build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries

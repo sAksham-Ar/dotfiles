@@ -109,3 +109,85 @@ dap.configurations.python = {
         end;
     },
 }
+
+dap.adapters.delve = {
+  type = 'server',
+  port = '${port}',
+  executable = {
+    command = 'dlv',
+    args = {'dap', '-l', '127.0.0.1:${port}', '--check-go-version=false'},
+    -- add this if on windows, otherwise server won't open successfully
+    -- detached = false
+  }
+}
+
+-- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
+dap.configurations.go = {
+  {
+    type = "delve",
+    name = "Debug service",
+    request = "launch",
+    program = vim.fn.getcwd() .. '/main.go',
+    args = {"-dw", "start"},
+    env = {
+            CONFIG_SOURCE = "local:default,global-config|sre|dataplatform",
+
+        },
+    outputMode = "remote",
+
+  },
+  {
+    type = "delve",
+    name = "Debug",
+    request = "launch",
+    program = vim.fn.getcwd() .. '/main.go',
+    args = function()
+      local args = vim.fn.input('Args: ', '', 'file')
+      if args == '' then
+        return nil
+      end
+      return vim.split(args, ' ')
+    end,
+    env = {
+            CONFIG_SOURCE = "local:default,global-config|sre",
+        },
+    outputMode = "remote",
+
+  },
+  {
+    type = "delve",
+    name = "Debug ATS",
+    request = "launch",
+    program = vim.fn.getcwd() .. '/.',
+    args = function()
+      local args = vim.fn.input('Args: ', '', 'file')
+      if args == '' then
+        return nil
+      end
+      return vim.split(args, ' ')
+    end,
+    env = {
+            CONFIG_SOURCE = "local:default,global-config|sre",
+            CGO_ENABLED = "0"
+        },
+    outputMode = "remote",
+
+  },
+  {
+    type = "delve",
+    name = "Debug test", -- configuration for debugging test files
+    request = "launch",
+    mode = "test",
+    program = "${file}",
+    outputMode = "remote",
+  },
+  -- works with go.mod packages and sub packages 
+  {
+    type = "delve",
+    name = "Debug test (go.mod)",
+    request = "launch",
+    mode = "test",
+    program = "./${relativeFileDirname}",
+    outputMode = "remote",
+  },
+}
